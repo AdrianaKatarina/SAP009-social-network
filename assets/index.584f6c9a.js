@@ -4813,63 +4813,6 @@ async function createUserWithEmailAndPassword(auth2, email, password) {
 function signInWithEmailAndPassword(auth2, email, password) {
   return signInWithCredential(getModularInstance(auth2), EmailAuthProvider.credential(email, password));
 }
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function updateProfile$1(auth2, request) {
-  return _performApiRequest(auth2, "POST", "/v1/accounts:update", request);
-}
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function updateProfile(user, { displayName, photoURL: photoUrl }) {
-  if (displayName === void 0 && photoUrl === void 0) {
-    return;
-  }
-  const userInternal = getModularInstance(user);
-  const idToken = await userInternal.getIdToken();
-  const profileRequest = {
-    idToken,
-    displayName,
-    photoUrl,
-    returnSecureToken: true
-  };
-  const response = await _logoutIfInvalidated(userInternal, updateProfile$1(userInternal.auth, profileRequest));
-  userInternal.displayName = response.displayName || null;
-  userInternal.photoURL = response.photoUrl || null;
-  const passwordProvider = userInternal.providerData.find(({ providerId }) => providerId === "password");
-  if (passwordProvider) {
-    passwordProvider.displayName = userInternal.displayName;
-    passwordProvider.photoURL = userInternal.photoURL;
-  }
-  await userInternal._updateTokensIfNecessary(response);
-}
 function onIdTokenChanged(auth2, nextOrObserver, error, completed) {
   return getModularInstance(auth2).onIdTokenChanged(nextOrObserver, error, completed);
 }
@@ -17772,26 +17715,14 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const login$1 = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password);
-};
-const createNewAccount = async (email, password, username) => {
-  await createUserWithEmailAndPassword(auth, email, password);
-  return updateProfile(auth.currentUser, {
-    displayName: username
-  });
+const login$1 = (email, password) => signInWithEmailAndPassword(auth, email, password);
+const createNewAccount = (email, password) => {
+  createUserWithEmailAndPassword(auth, email, password);
 };
 const provider = new GoogleAuthProvider();
 const entrarComGoogle = async () => signInWithPopup(auth, provider);
 const userLogout = () => signOut(auth);
 const checkAuthentication = (cb2) => onAuthStateChanged(auth, cb2);
-const getSignedUser = () => {
-  const user = auth.currentUser;
-  if (user) {
-    return "Usu\xE1rio encontrado";
-  }
-  return "Usu\xE1rio n\xE3o encontrado";
-};
 const home = () => {
   const container = document.createElement("main");
   container.classList.add("background-h-r-l");
@@ -17842,26 +17773,41 @@ const home = () => {
   return container;
 };
 const about = () => {
-  const logged = getSignedUser();
-  const userLogged = logged === "Usu\xE1rio n\xE3o encontrado";
   const container = document.createElement("main");
   container.classList.add("main-about");
   const template = `
     <header class='header-about'>
       <h1 class='name-about'>Friandy</h1>
       <img src='/image/logo.svg' alt='Logo' class='logo mt-1rem'> 
-      ${userLogged ? '<a href="/#home" class="entrar-about">Entrar</a>' : '<a href="/#feed" class="entrar-about">Feed</a>'}
+      <a href='/#home' class='entrar-about'>Entrar</a>
     </header>
     <section class='main-section'>
       <section class='img-txt'>
-        <img src='/image/feed.svg' alt='feed da rede social friandy' class='img-test'>
-        <p class='p-about'>Somos uma rede social <br>voltada para pessoas <br> apaixonadas por doces</p>
+        <img src='/image/about.svg' alt='feed da rede social friandy' class='img-test'>
+        <p class='text-one'>Somos uma rede social <br>voltada para pessoas <br> apaixonadas por doces</p>
       </section>
       <section class='txt-img img-txt'>
-      <p class='p-about'>Aqui voc\xEA poder\xE1 compartilhar sobre os seus doces</p>
-      <img src='/image/feed.svg' alt='feed da rede social friandy' class='img-test'>      
-    </section>
-  `;
+        <p class='text-two'>Aqui voc\xEA poder\xE1 compartilhar sobre os seus doces</p> 
+        <img src='/image/compartilhar.svg' alt='feed da rede social friandy' class='img-test'>      
+      </section>
+      <section class='txt-img img-txt'>
+        <img src='/image/doces.svg' alt='feed da rede social friandy' class='img-batedeira'>  
+        <p class='text-tree'>Ver receitas e curtir os posts</p> 
+      </section>
+      <p class='text-about'>Sobre as Desenvolvedoras:</p> 
+      <section class='dev-poly'>
+        <img src='/image/dev-poly.png' alt='imagem poly' class='img-dev'>  
+        <p class='text-dev'>Me chamo Polyana Feitoza,<br>tenho 21 anos e sou do Paran\xE1.<br>Sempre foi apaixonada por doces<br> e o meu favorito \xE9 donnuts.</p> 
+        <a class='icon-git' href="https://github.com/PolyanaCristinaFeitoza" target='_blank'> <img src='/image/icon-git.svg' alt='icone do gitHub' class='img-git'></a> 
+        <a class='icon-linkedin' href="https://www.linkedin.com/in/polyftza/" target='_blank'> <img src='/image/icon-linkedin.svg' alt='icone do gitHub' class='img-linkedin'></a>
+      </section>
+      <section class='dev-adri'>
+        <img src='/image/dev-adri.png' alt='imagem adri' class='img-dev'>  
+        <p class='text-dev'>Me chamo Adriana Oliveira, tenho 26 anos e sou de Fortaleza. N\xE3e consigo esperar at\xE9 a festa junina para comer meu doce favorito que \xE9 o bolo de macaxeira.</p>
+        <a class='icon-git' href="https://github.com/AdrianaKatarina" target='_blank'> <img src='/image/icon-git.svg' alt='icone do gitHub' class='img-git'></a> 
+        <a class='icon-linkedin' href="https://www.linkedin.com/in/adroliveira/" target='_blank'> <img src='/image/icon-linkedin.svg' alt='icone do gitHub' class='img-linkedin'></a>
+      </section>
+    `;
   container.innerHTML = template;
   return container;
 };
@@ -17976,10 +17922,10 @@ const register = () => {
     window.location.hash = "#home";
   });
   const newAccountData = () => {
-    const name2 = document.getElementById("name").value;
+    document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    createNewAccount(email, password, name2).then(() => {
+    createNewAccount(email, password).then(() => {
       window.location.hash = "login";
     }).catch((error) => {
       const errorParagraph = document.querySelector(".message-error");
@@ -18068,8 +18014,6 @@ const publishPost = (posts, container, loggedUser) => {
       ${statusLikes ? '<img src="/image/like-purple.svg" alt="like" class="img-like">' : '<img src="/image/like.svg" alt="like" class="img-like">'}
     </button>
     <p class='count'>${post.likes.length}</p>
-    <button class='btn-comment'>
-      <img src='/image/comment.svg' alt='comentario' class='img-coment'>
     </button>
     ${isAuthor ? `<button class='btn-delete'>
       <img src='/image/delete.svg' alt='delete' class='img-delete'>
@@ -18133,8 +18077,8 @@ const loadPosts = (loadTimeline, uidUser) => {
   });
 };
 const feed = () => {
-  const logged = getSignedUser();
-  if (logged === "Usu\xE1rio n\xE3o encontrado") {
+  const user = auth.currentUser;
+  if (!user) {
     window.location.href = "";
   }
   const container = document.createElement("main");
@@ -18160,7 +18104,7 @@ const feed = () => {
       <img src='/image/home.svg' alt='home' class='img-home'>
     </a>
     <a href="/#about" class='nav-hash'>
-      <img src='/image/hash.svg' alt='hash' class='img-hash'>
+      <img src='/image/cake.svg' alt='hash' class='img-hash'>
     </a>
     <a href="/#home" class='nav-logout'>
       <img src='/image/logout.svg' alt='sair' class='img-logout'>
@@ -18183,6 +18127,10 @@ const feed = () => {
   const loadTimeline = container.querySelector(".timeline");
   const uidUser = auth.currentUser.uid;
   loadPosts(loadTimeline, uidUser);
+  const backToHome = container.querySelector(".nav-home");
+  backToHome.addEventListener("click", () => {
+    window.scrollTo(0, 0);
+  });
   const logout = container.querySelector(".nav-logout");
   logout.addEventListener("click", () => {
     userLogout().then(() => {
