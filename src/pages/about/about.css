@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Thasadith&display=swap');
 
-/* Page about */
-
 .main-about{
   min-height: 100vh;
 }
@@ -31,7 +29,6 @@
 .main-section{
   display: grid;
   margin: 2rem;
-  /* background-color: #f0f0f0; */
   gap:4rem;
   margin-top: 5rem;
 }

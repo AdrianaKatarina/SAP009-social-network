@@ -51,7 +51,6 @@ export default () => {
   newPost.addEventListener('click', () => {
     const getText = container.querySelector('#post');
     if (getText.value === '') {
-      /* const messageError = container.querySelector('.message-error'); */
       alert('Preencha o campo antes de publicar');
     } else {
       const username = auth.currentUser.displayName;

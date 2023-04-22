@@ -9,14 +9,13 @@ import iconLinkedinImg from '../../image/icon-linkedin.svg';
 
 export default () => {
   const container = document.createElement('main');
-
   container.classList.add('main-about');
 
   const template = `
     <header class='header-about'>
       <h1 class='name-about'>Friandy</h1>
       <img src=${logoImg} alt='Logo' class='logo mt-1rem'> 
-      <a href='/#home' class='entrar-about'>Entrar</a>
+      ${'<a href="/#home" class="entrar-about">Entrar</a>'}
     </header>
     <section class='main-section'>
       <section class='img-txt'>
@@ -25,7 +24,7 @@ export default () => {
       </section>
       <section class='txt-img img-txt'>
         <p class='text-two'>Aqui você poderá compartilhar sobre os seus doces</p> 
-        <img src=${compartilharImg } alt='feed da rede social friandy' class='img-test'>      
+        <img src=${compartilharImg} alt='feed da rede social friandy' class='img-test'>      
       </section>
       <section class='txt-img img-txt'>
         <img src=${docesImg} alt='feed da rede social friandy' class='img-batedeira'>  

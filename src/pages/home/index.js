@@ -10,12 +10,12 @@ export default () => {
   const container = document.createElement('main');
 
   container.classList.add('background-h-r-l');
-  if(window.matchMedia('(min-width: 1024px)').matches){
+  if (window.matchMedia('(min-width: 1024px)').matches) {
     container.style.backgroundImage = `url(${bgDesktopImg})`;
-  }else {
+  } else {
     container.style.backgroundImage = `url(${bgMobileImg})`;
   }
-  
+
   const template = `
     <figure>
       <img class='d-w' src=${peopleImg} alt='Duas pessoas preparando um bolo na vasilha'>
@@ -26,8 +26,8 @@ export default () => {
         <img src=${logoImg} alt='Logo' class='logo'>
       </header>
         <h2 class='font-margin'>Entre no Friandy</h2>
-        <form class='form'>
-          <button type='button' class='btn-input-wb btn-login' id='google'>
+        <form class='form-home'>
+          <button type='button' class='btn-input-wb btn-google' id='google'>
             <img src=${googleImg} alt='google' class='icon-login'>
             <p>Entrar com Google</p>
           </button>
@@ -38,7 +38,7 @@ export default () => {
             <img src=${emailImg} alt='email' class='icon-login'>
             <p>Entrar com Email</p>
           </button>
-          <p class='sem-conta'>Não tem conta cadastrada?</p>
+          <p class='message-no-account'>Não tem conta cadastrada?</p>
           <button type='button' class='btn-purple' id='register'>Criar Conta</button>
         </form>
       <footer>
