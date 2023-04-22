@@ -1,5 +1,5 @@
-import { createNewAccount } from '../../firebase/firebase';
-import { firebaseError } from '../../lib/errors.js';
+import { register, updateName } from '../../firebase/firebase';
+import { firebaseError } from '../../error/errors.js';
 import peopleImg from '../../image/people.svg';
 import arrowImg from '../../image/arrow.svg';
 import logoImg from '../../image/logo.svg';
@@ -9,10 +9,10 @@ import bgDesktopImg from '../../image/background-desktop.svg';
 export default () => {
   const container = document.createElement('main');
   container.classList.add('background-h-r-l');
-  
-  if(window.matchMedia('(min-width: 1024px)').matches){
+
+  if (window.matchMedia('(min-width: 1024px)').matches) {
     container.style.backgroundImage = `url(${bgDesktopImg})`;
-  }else {
+  } else {
     container.style.backgroundImage = `url(${bgMobileImg})`;
   }
 
@@ -23,7 +23,7 @@ export default () => {
   <section class='position-card'>
     <section class='card'>
       <header class='position-header'>
-        <button class='seta'>
+        <button class='arrow'>
           <img src=${arrowImg} alt='seta' class='img-seta'>
         </button>
         <img src=${logoImg} alt='Logo' class='logo'>
@@ -45,29 +45,29 @@ export default () => {
 
   container.innerHTML = template;
 
-  const arrow = container.querySelector('.seta');
+  const arrow = container.querySelector('.arrow');
   arrow.addEventListener('click', () => {
     window.location.hash = '#home';
   });
-
-  /* Utilizar container no lugar do document vai dar typeError */
 
   const newAccountData = () => {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    createNewAccount(email, password, name)
-      .then(() => {
+    register(email, password)
+      .then(async () => {
+        await updateName(name);
         window.location.hash = 'login';
       })
       .catch((error) => {
-        const errorParagraph = document.querySelector('.message-error');
-        errorParagraph.innerHTML = firebaseError(error);
+        const errorMessage = firebaseError(error);
+        const errorParagraph = container.querySelector('.message-error');
+        errorParagraph.innerHTML = errorMessage;
       });
   };
 
-  container.addEventListener('click', (event) => { // pegando todos os eventos de click
-    if (event.target.id === 'btnCreateNewAccount' && event.target.nodeName === 'BUTTON') newAccountData(); // event. target é o elemento no qual o evento ocorreu ou o elemento que acionou o evento. Já o nodeName mostra se o elemento clicado é um input ou boutton.
+  container.addEventListener('click', (event) => {
+    if (event.target.id === 'btnCreateNewAccount' && event.target.nodeName === 'BUTTON') newAccountData();
   });
 
   return container;

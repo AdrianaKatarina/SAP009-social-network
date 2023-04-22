@@ -8,16 +8,9 @@ import deleteImg from '../../image/delete.svg';
 export default (posts, container, loggedUser) => {
   container.innerHTML = '';
   posts.map((post) => {
-    // add o toDate()
     const data = post.date.toDate();
-
-    // pegando o dia que foi publicado
     const dia = data.getDate();
-
-    // pegando o mês que foi publicado (+1 por que o js só conta 11 meses)
     const mes = data.getMonth() + 1;
-
-    // pegando o ano que foi publicado
     const ano = data.getFullYear();
 
     const postContainer = document.createElement('section');
@@ -74,7 +67,7 @@ export default (posts, container, loggedUser) => {
     btnLike.addEventListener('click', async () => {
       const status = await likePost(post.id, loggedUser);
       if (status.liked === true) {
-        imgLike.setAttribute('src', '${likePurpleImg}');
+        imgLike.setAttribute('src', `${likePurpleImg}`);
         countLike.innerHTML = status.count;
       }
     });

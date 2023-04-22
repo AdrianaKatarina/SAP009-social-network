@@ -1,6 +1,6 @@
 import {
   login,
-  createNewAccount,
+  register,
   checkAuthentication,
   updateName,
 } from '../src/firebase/firebase';
@@ -22,9 +22,7 @@ describe('Login do Usuário', () => {
     const email = 'teste@teste.com';
     const password = 'teste987654';
     await login(email, password);
-    /* Conta quantas vezes a função foi chamada */
     expect(signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
-    /* Com quais parâmetros a função foi chamada */
     expect(signInWithEmailAndPassword).toHaveBeenCalledWith(undefined, email, password);
   });
 });
@@ -33,7 +31,7 @@ describe('Criar nova conta', () => {
   it('Deve criar uma nova conta com sucesso', () => {
     const email = 'teste3@teste.com';
     const password = 'teste54321';
-    createNewAccount(email, password);
+    register(email, password);
     expect(createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
     expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(undefined, email, password);
   });

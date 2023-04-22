@@ -5,8 +5,6 @@ import {
   likePost,
 } from '../src/firebase/firestore';
 
-/* import { loadPosts } from '../src/firebase/loadPosts'; */
-
 import {
   addDoc,
   deleteDoc,

@@ -1,4 +1,3 @@
-// Este es el punto de entrada de tu aplicacion
 import home from './pages/home/index.js';
 import about from './pages/about/about.js';
 import login from './pages/login/index.js';
@@ -6,7 +5,6 @@ import register from './pages/register/index.js';
 import feed from './pages/feed/feed.js';
 import { checkAuthentication } from './firebase/firebase.js';
 
-// Root definido no arquivo index.html
 const main = document.querySelector('#root');
 const redirectUserAuthentication = (user) => {
   if (user) {
@@ -15,8 +13,6 @@ const redirectUserAuthentication = (user) => {
     window.location.hash = 'home';
   }
 };
-
-// Função inicializar a página
 
 window.addEventListener('hashchange', async () => {
   main.innerHTML = ' ';
@@ -40,7 +36,6 @@ window.addEventListener('hashchange', async () => {
   }
 });
 
-// Ao carregar a página
 window.addEventListener('load', () => {
   main.appendChild(home());
   window.location.hash = '';

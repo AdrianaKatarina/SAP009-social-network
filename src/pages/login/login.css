@@ -1,17 +1,26 @@
-/* CSS - Página de Login com Email e Senha */
+.form-login{
+  display: grid;
+  grid-template-areas: 
+   "email"
+   "password"
+   "enter";
+  gap: 1rem;
+}
 
-.input-size{
+.input-email{
+  grid-area: email;
   cursor: text;
 }
 
-.password{
-  margin-top: 2rem;
+.input-password{
+  grid-area: password;
+  cursor: text;
 }
 
-.enter{
-  width: 20vw;
-  position: relative;
-  left: 6rem;
+.btn-enter{
+  grid-area: enter;
+  justify-self: end;
+  width: 7rem;
 }
 
 .message-error{
@@ -35,4 +44,5 @@
   .btn-input-wb .input-size{
     width: 22vw;
   }
+  
 }
