@@ -156,7 +156,7 @@ button:active{
   .d-w{
     display: block;
     position: fixed;
-    margin: 35rem -1rem;
+    margin: 39rem 8rem;
     width: 25vw;
   }
 
@@ -200,27 +200,12 @@ button:active{
     margin: 48rem 1rem;
   }
 
-/*   .position-card{
-    justify-content: flex-end;
-    flex-direction: row;
-    margin-right: 5rem;
+  .seta {
+    left: 9rem;
+    width: 10vw;
+    height: 10vh;
   }
-
-  .card{
-    width: 40%;
+  .img-seta {
+    width: 6vw;
   }
-
-  .seta{
-    display: none;
-  }
-
-  .logo{
-    width: 8vw;
-  } */
-
-  .btn-input-wb{
-    width: 13vw;
-    font-size: 2rem;
-  }
-
 }

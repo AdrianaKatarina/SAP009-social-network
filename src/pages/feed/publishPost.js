@@ -57,7 +57,7 @@ export default (posts, container, loggedUser) => {
       const btnDelete = postContainer.querySelector('.img-delete');
 
       btnDelete.addEventListener('click', async () => {
-        if (window.confirm('Tem certeza?')) {
+        if (window.confirm('Tem certeza que deseja excluir o post?')) {
           await deletePost(post.id);
         }
       });

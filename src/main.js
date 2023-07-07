@@ -22,6 +22,7 @@ window.addEventListener('hashchange', async () => {
   main.innerHTML = ' ';
   switch (window.location.hash) {
     case ' ':
+      // O método appendChild() insere um novo nó na estrutura do DOM de um documento
       main.appendChild(home());
       break;
     case '#login':

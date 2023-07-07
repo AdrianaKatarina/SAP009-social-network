@@ -11,12 +11,13 @@ import {
 } from './exports';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC2OxkN8MJGo9tWdGGLxCl57x4kivaa2ZA',
-  authDomain: 'friandy-83b1a.firebaseapp.com',
-  projectId: 'friandy-83b1a',
-  storageBucket: 'friandy-83b1a.appspot.com',
-  messagingSenderId: '636010240748',
-  appId: '1:636010240748:web:e7e8c6e52cde393d7423c9',
+  apiKey: 'AIzaSyAzhilCctdX9tbu4dggcF0sumux724valM',
+  authDomain: 'friandy-47ea8.firebaseapp.com',
+  projectId: 'friandy-47ea8',
+  storageBucket: 'friandy-47ea8.appspot.com',
+  messagingSenderId: '202950781133',
+  appId: '1:202950781133:web:a6098987f57a9418466184',
+  measurementId: 'G-2L054YW117',
 };
 
 export const app = initializeApp(firebaseConfig);

@@ -89,7 +89,7 @@ Funções do Firestore testadas:
 * [✓] Ao salvar as alterações, você deve voltar ao texto normal, mas com a informação editada
 * [✓] Ao recarregar a página, poder ver os textos editados
 
-## 6. Ferramentas utilizadas
+## 6. Ferramentas e bibliotecas utilizadas
 
 * JavaScript
 
@@ -99,9 +99,13 @@ Funções do Firestore testadas:
 
 * Node
 
+* Firebase
+
 * Jest
 
 * Vite
+
+* ESLint
 
 * Trello
 

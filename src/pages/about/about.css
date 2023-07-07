@@ -62,7 +62,7 @@
 .text-two{
   font-size: 2rem;
   font-family: 'Thasadith', sans-serif;
-  margin-left: 4rem;
+  margin-left: 2rem;
   margin-top: 2rem;
 }
 
@@ -177,7 +177,7 @@
   }
 
   .img-dev{
-    width: 25vw;
+    width: 21vw;
   }
 
   .text-dev{

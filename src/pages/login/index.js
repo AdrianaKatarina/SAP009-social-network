@@ -4,7 +4,7 @@ import { firebaseError } from '../../lib/errors.js';
 export default () => {
   const container = document.createElement('main');
 
-  container.classList.add('background-h-r-l');
+  // container.classList.add('background-h-r-l');
 
   const template = `
   <figure>
